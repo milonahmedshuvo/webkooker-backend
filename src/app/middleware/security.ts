@@ -1,16 +1,16 @@
 // middleware/security.ts
 
-import helmet from 'helmet';
-import cors from 'cors';
-import hpp from 'hpp';
-import xss from 'xss';
-import { Request, Response, NextFunction } from 'express';
+import helmet from "helmet";
+import cors from "cors";
+import hpp from "hpp";
+import xss from "xss";
+import { Request, Response, NextFunction } from "express";
 
 // Input sanitize function
 const sanitizeInput = (obj: any) => {
   const sanitized: any = {};
   for (const key in obj) {
-    if (typeof obj[key] === 'string') {
+    if (typeof obj[key] === "string") {
       sanitized[key] = xss(obj[key]);
     } else {
       sanitized[key] = obj[key];
