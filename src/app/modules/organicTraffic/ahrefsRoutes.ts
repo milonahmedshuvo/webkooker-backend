@@ -1,7 +1,9 @@
 import { Router } from "express";
-import { getOrganicTrafficController } from "./ahrefsController";
+import { ahrefsControllers } from "./ahrefsController";
+
 const router = Router();
 
-router.post("/organicTraffic", getOrganicTrafficController);
+router.post("/organicTraffic", ahrefsControllers.getOrganicTrafficController);
 
 export const organicRoutes = router;
+

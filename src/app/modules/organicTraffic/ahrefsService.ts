@@ -8,31 +8,36 @@ interface Keyword {
 export const fetchOrganicTraffic = async (
   domain: string
 ): Promise<number | undefined> => {
-  const params = {
-    token: config.ahrefs_api_token,
-    from: "domain_organic_keywords",
-    target: domain,
-    mode: "domain",
-    output: "json",
-    limit: 1000,
-    country: "us",
-  };
-
+  
+  
   try {
-    const response = await axios.get("https://apiv3.ahrefs.com", { params });
+    const response = await axios.get("https://apiv3.ahrefs.com", {
+      params: {
+        token: config.ahrefs_api_token,
+        from: "domain_organic_keywords",
+        target: domain.replace(/^www\./, ""),
+        mode: "domain",
+        output: "json",
+        limit: 1000,
+        country: "us",
+      },
+    });
 
-    const keywords: Keyword[] = response.data?.keywords || [];
-    const traffic = keywords.reduce(
-      (sum, item) => sum + (item.traffic || 0),
-      0
-    );
 
-    return traffic;
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log(err);
+    console.log({response})
+
+    const keywords = response.data?.keywords || [];
+    const traffic = keywords.reduce((sum: number, item: any) => sum + (item.traffic || 0), 0);
+    console.log({traffic})
+    return traffic
+  } catch (error: any) {
+    console.error("Error fetching organic traffic:", error?.message);
+    
   }
 };
+
+
+
 
 export const ahrefsServices = {
   fetchOrganicTraffic,

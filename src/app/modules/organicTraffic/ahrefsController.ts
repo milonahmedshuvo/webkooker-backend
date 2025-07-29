@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import { fetchOrganicTraffic } from "./ahrefsService";
 
-export const getOrganicTrafficController = async (
+
+const getOrganicTrafficController = async (
   req: Request,
   res: Response
 ) => {
@@ -20,6 +21,6 @@ export const getOrganicTrafficController = async (
   }
 };
 
-const ahrefsControllers = {
+export const ahrefsControllers = {
   getOrganicTrafficController,
 };
