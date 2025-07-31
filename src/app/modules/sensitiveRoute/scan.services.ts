@@ -32,27 +32,29 @@ const detectSensitiveRoutes = async (baseUrl: string) => {
 
       const response = await fetch(url, {
         method: "GET",
-        // redirect: "manual",
-        redirect: "follow",
+        redirect: "manual",
+        // redirect: "follow",
         signal: controller.signal,
+        // headers: {
+        //   "User-Agent":
+        //     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/114.0.0.0 Safari/537.36",
+        // },
       });
 
       clearTimeout(timeout);
 
       const status = response.status;
-      const accessible = [200, 301, 302, 403].includes(status);
+      const accessible = [200, 301, 302].includes(status);
 
       results.push({ path, status, accessible });
     } catch (error) {
       results.push({ path, status: "FAILED", accessible: false });
-    } 
+    }
   }
 
-
-  return results
+  return results;
 };
 
-
 export const sensitiveServices = {
-    detectSensitiveRoutes
-}
+  detectSensitiveRoutes,
+};

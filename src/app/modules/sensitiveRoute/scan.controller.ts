@@ -12,6 +12,7 @@ const scanWebsite = async (req:Request, res:Response, next:NextFunction) => {
         const results = await sensitiveServices.detectSensitiveRoutes(baseUrl)
 
         console.log({results})
+        
         res.status(200).json({
             success: true,
             message: "Sensitive Routes is successfull",
